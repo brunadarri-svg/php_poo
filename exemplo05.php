@@ -31,7 +31,7 @@ class funcionario
         }else if($salario >= 2000 && $salario < 3000){
             $tipoFuncionario = "Pleno";
         }else if($salario >= 3000 ){
-            $tipoFuncionario = "Senior";
+            $tipoFuncionario = "Ssenior";
         }else{
             $tipoFuncionario = "Estagiario";
         }

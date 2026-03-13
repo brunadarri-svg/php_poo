@@ -4,7 +4,7 @@ class Calculadora
 {
     public $valor;
 
-    function_construct($valor)
+    function __construct($valor)
     {
         $this->valor = $valor;
     }
@@ -16,6 +16,6 @@ class Calculadora
 }
 
 $calc = new Calculadora(0);
-echo "VALOR = $valor";
+echo "VALOR = $calc->valor";
 $calc->valor = $calc->somar(3, 5);
-echo "VALOR = $valor";
+echo "VALOR = $calc->valor";
