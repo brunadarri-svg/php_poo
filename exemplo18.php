@@ -2,18 +2,18 @@
 
 class Conta
 {
-    // Atributos - Propriedades campos
+    // Atributos - Propiedades - Campos
     private $numero;
     private $saldo;
 
-    // Método Construtor
+    //Método Construtor
     function __construct($numero, $saldo)
     {
         $this->numero = $numero;
         $this->saldo = $saldo;
     }
 
-    // Métodos Geters e Setters
+    //Métodos Getters e Setters
     public function getNumero()
     {
         return $this->numero;
@@ -24,7 +24,12 @@ class Conta
         return $this->saldo;
     }
 
-    // Métodos
+    protected function setSaldo($novoSaldo)
+    {
+        $this->saldo = $novoSaldo;
+    }
+
+    //Métodos
     function creditar($valor)
     {
         $this->saldo = $this->saldo + $valor;
@@ -35,25 +40,23 @@ class Conta
         $this->saldo = $this->saldo - $valor;
     }
 
-    function transferir($outraConta, $valor)
+    function transferir($outraConta, $valor) 
     {
-        if ($this->saldo > $valor) {
-            $this->debitar($valor);
-            $outraConta->creditar($valor);
+        if($this->saldo >= $valor){
+           $this->debitar($valor);
+           $outraConta->creditar($valor);
         }
     }
 }
 
-
 class Poupanca extends Conta
 {
-
     protected $juros;
 
     function __construct($numero, $saldo, $juros)
     {
-        parent::__contruct($numero, $saldo);
-        $this->juros = $juros;
+      parent::__construct($numero, $saldo);
+      $this->juros = $juros;
     }
 
     function creditar($valor)
@@ -64,18 +67,18 @@ class Poupanca extends Conta
 
     function atualizarJuros()
     {
-        $this->saldo = $this->saldo * (1 + $this->juros);
+        $novoSaldo = $this->getSaldo() * (1 + $this->juros);
+        $this->setSaldo($novoSaldo);
     }
 }
 
-$conta = new Conta(1, 150);
+$conta= new Conta(1, 150);
 $conta->creditar(50);
 $conta->debitar(100);
-echo "Saldo da conta {$conta->getNumero()}: {$conta->getSaldo()} <br>";
+echo "Saldo da conta {$conta->getNumero()}: R$ {$conta->getSaldo()} <br>";
 
-
-$poupanca = new Poupanca(2, 150, 0.10);
+$poupanca = new Poupanca(2,150, 0.10);
 $poupanca->creditar(50);
 $poupanca->debitar(100);
 $poupanca->atualizarJuros();
-echo "Saldo da Poupança $poupanca->numero: $poupanca->saldo <br>";
+echo "Saldo da conta {$poupanca->getNumero()}: R$ {$poupanca->getSaldo()} <br>";
